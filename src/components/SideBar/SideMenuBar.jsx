@@ -48,9 +48,9 @@ function SidebarItem({ item, isActive,isSecondGroup }) {
           borderRadius: "8px",
         }),
         ...(isActive && {
-          backgroundColor: "rgba(255, 255, 255, 0.2)", // Adjust opacity as needed
-          backdropFilter: "blur(10px)", // Apply blur effect for glass-like appearance
-          borderRadius: "8px", // Optional: adjust border radius
+          backgroundColor: "rgba(255, 255, 255, 0.2)",
+          backdropFilter: "blur(10px)", 
+          borderRadius: "8px", 
         }),
         margin: "10px 15px 0px 15px",
        
@@ -76,15 +76,12 @@ export function SideMenuBar({ items }) {
   return (
     <Box>
       <List disablePadding>
-        {/* First group */}
         <div style={{ marginTop: "10px" }}></div>
 
         {firstGroup.map((sidebarItem, index) => (
           <SidebarItem key={`${sidebarItem.name}${index}`} item={sidebarItem} />
         ))}
-        {/* Add margin between groups */}
         <div style={{ marginTop: "40px" }}></div>
-        {/* Second group */}
         {secondGroup.map((sidebarItem, index) => (
           <SidebarItem
             key={`${sidebarItem.name}${index}`}

@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import ApexCharts from "apexcharts";
-import { Box, Paper, Typography } from "@mui/material";
+import { Box, Paper, Typography ,useMediaQuery} from "@mui/material";
 
 const CircularChart = () => {
+  const isSmallScreen = useMediaQuery("(max-width: 912px)");
   const chartContainerRef = useRef(null);
 
   useEffect(() => {
@@ -11,40 +12,49 @@ const CircularChart = () => {
       chart: {
         type: "donut",
         width: "100%",
+        height: 200,
+        events: {
+          animationEnd: function(ctx) {
+            ctx.toggleDataPointSelection(0);
+          }
+        }
       },
       colors: ["#F3399A", "#623AEA", "#F1EFFC"],
       plotOptions: {
         pie: {
           donut: {
             labels: {
-              show: false,
-            },
+              show: false
+            }
           },
-          expandOnClick: true, // This makes the first segment expandable
+          expandOnClick: true,
+          stroke: {
+            color: "#F3399A"
+          }
         },
+      
+        donut: {
+          size: "95%"
+        }
+      },
+      stroke: {
+        width: 0
       },
       legend: {
-        show: false,
+        show: false
       },
       dataLabels: {
-        enabled: false,
+        enabled: false
       },
       tooltip: {
-        enabled: false,
-      },
+        enabled: false
+      }
     };
-    
 
     if (!chartContainerRef.current) return;
 
-    // Log the options to inspect if there's anything unusual
-    console.log("Options:", options);
-
     const chart = new ApexCharts(chartContainerRef.current, options);
     chart.render();
-
-    // Log the chart object to inspect its properties
-    console.log("Chart Object:", chart);
 
     return () => {
       chart.destroy();
@@ -55,7 +65,11 @@ const CircularChart = () => {
     <Box
       component={Paper}
       sx={{
-        position: "relative",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "flex-start",
+        height: "305px",
       }}
     >
       <Box
@@ -64,16 +78,15 @@ const CircularChart = () => {
           flexDirection: "column",
           justifyContent: "flex-start",
           alignItems: "flex-start",
-          pl: "20px",
-          pt: "20px",
+          marginRight: isSmallScreen?"180px":"60px",
+          marginTop: "10px"
         }}
       >
         <Typography
           variant="h6"
           sx={{
             fontSize: "18px",
-            fontWeight: "bold",
-            // marginLeft: "-20px",
+            fontWeight: "bold"
           }}
         >
           Customers
@@ -81,47 +94,50 @@ const CircularChart = () => {
         <Typography
           sx={{
             color: "gray",
-            // marginLeft: "20px",
-            fontSize: "12px",
+            fontSize: "12px"
           }}
+          variant="subtitle1"
         >
           Customers that Buy Products
         </Typography>
       </Box>
-      <Box
-        sx={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%,-50%)",
-        }}
-      >
-        <span
-          style={{
-            fontSize: "24px !important",
-
-            fontWeight: "bold",
-            display: "block",
+    
+      <Box component={Paper} sx={{
+        height: "200px",
+        width: "200px",
+        borderRadius: "50%",
+        position: 'relative',
+        mt: "20px",
+        boxShadow: 2
+      }}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%,-50%)"
           }}
         >
-          65%
-        </span>
-        <Typography
-          variant="subtitle1"
-          sx={{
-            fontSize: "12px",
-            
-            
-            // marginLeft: "-20px",
-          }}
+          <span
+            style={{
+              fontSize: "24px !important",
+              fontWeight: "bold",
+              display: "block"
+            }}
           >
-
-          Total New <br /> Customers
-        </Typography>
+            65%
+          </span>
+          <Typography
+            variant="subtitle1"
+            sx={{
+              fontSize: "12px"
+            }}
+          >
+            Total New <br /> Customers
+          </Typography>
+        </Box>
+        <div ref={chartContainerRef} style={{ width: "100%", height: "500px", marginTop: "10px" }} />
       </Box>
-      {/* Log chartContainerRef to ensure it's correctly assigned */}
-      {console.log("Chart Container Ref:", chartContainerRef)}
-      <div ref={chartContainerRef} style={{ width: "100%", height: "240px" }} />
     </Box>
   );
 };

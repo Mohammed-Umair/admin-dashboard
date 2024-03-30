@@ -3,16 +3,18 @@ import {
   CardContent,
   Grid,
   Typography,
-  Divider,
-  Paper,
+ 
   Box,
+  useMediaQuery
 } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 
 import { dashboardCardData } from "../../utils/dashboardCardData";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 const DashboardCard = () => {
+  const isSmallScreen = useMediaQuery("(max-width: 912px)");
+
   return (
     <>
       <Grid
@@ -47,7 +49,7 @@ const DashboardCard = () => {
                     <CardContent
                       sx={{
                         display: "flex",
-                        justifyContent: "flex-start",
+                        justifyContent:  "flex-start",
                         alignItems: "center",
                         gap: "5px",
                         mt:"10px"
@@ -62,7 +64,7 @@ const DashboardCard = () => {
                           display: "flex",
                           justifyContent: "center",
                           alignItems: "center",
-                          ml:"-10px"
+                          ml: isSmallScreen? "10px": "-10px"
                         }}
                       >
                         <img
@@ -78,6 +80,7 @@ const DashboardCard = () => {
                           justifyContent: "space-between",
                           alignItems: "flex-start",
                           flexDirection: "column",
+                         marginLeft: isSmallScreen? "10px":"0px"
                         }}
                       >
                         <Typography
@@ -153,73 +156,4 @@ const DashboardCard = () => {
 export default DashboardCard;
 
 
-
-{/* <Divider />
-
-<Box width="auto">
-  <TableContainer>
-    <Table
-      // sx={{ width: "auto" }}
-      aria-label="simple table"
-    >
-      <TableBody>
-        {allData.map((item, index) => {
-        return (
-          <TableRow
-            key={index}
-            sx={{
-              "&:last-child td, &:last-child th": {
-                border: 0,
-              },
-            }}
-          >
-            <TableCell component="th" scope="row">
-              <Checkbox
-                size="small"
-                sx={{
-                  color: "#23ccef",
-                }}
-                {...label}
-                defaultChecked
-              />
-            </TableCell>
-            <TableCell align="left">{item.task}</TableCell>
-            <TableCell align="right">
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-around",
-                  alignItems: "center",
-                }}
-              >
-                <BootstrapTooltip
-                  placement="top"
-                  title="Edit Task..."
-                >
-                  <ModeEditOutlineRoundedIcon
-                    onClick={() => handleEdit(item.id)}
-                    sx={{
-                      color: "#23ccef",
-                      fontSize: "20px",
-                    }}
-                  />
-                </BootstrapTooltip>
-                <BootstrapTooltip
-                  placement="top"
-                  title="Edit Task..."
-                >
-                  <ClearIcon
-                    onClick={() => handleDelete(item.id)}
-                    sx={{ color: "red", fontSize: "20px" }}
-                  />
-                </BootstrapTooltip>
-              </Box>{" "}
-            </TableCell>
-          </TableRow>
-        );
-      })}
-      </TableBody>
-    </Table>
-  </TableContainer>
-</Box> */}
 

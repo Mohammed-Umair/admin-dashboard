@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Paper, InputBase } from "@mui/material";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,15 +12,12 @@ import Divider from "@mui/material/Divider";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 
-import { useMediaQuery, IconButton, TextField } from "@mui/material";
+import { useMediaQuery, IconButton } from "@mui/material";
 import SideData from "./SideData";
 import DashboardCard from "../Cards/DashboardCard";
 import TableComp from "../Table/TableComp";
 
-
 import DashboardCharts from "../Charts/DashboardCharts";
-import CircularChart from "../Charts/CircularChart";
-
 
 const drawerWidth = 240;
 
@@ -47,6 +45,7 @@ export default function SideBar() {
           backgroundColor: "#F4F5F9",
           color: "black",
           boxShadow: "none",
+          mt:"10px"
         }}
       >
         <Toolbar sx={{ justifyContent: "space-between" }}>
@@ -74,19 +73,28 @@ export default function SideBar() {
           </Typography>
 
           {!isMobile && (
-            <TextField
-              size="small"
-              variant="outlined"
+            <Paper
+              component="form"
               sx={{
+                p: "0px 4px",
+                display: "flex",
+                alignItems: "center",
+                width: 250,
+                boxShadow: "none",
                 backgroundColor: "white",
-                border: "none",
-                marginRight: "25px",
+                borderRadius: "5px",
+                marginRight:"20px"
               }}
-              placeholder="Search..."
-              InputProps={{
-                startAdornment: <SearchIcon sx={{ mr: 1, color: "inherit" }} />,
-              }}
-            />
+            >
+              <IconButton type="button" sx={{ p: "10px" }} aria-label="search">
+                <SearchIcon />
+              </IconButton>
+              <InputBase
+                sx={{ ml: 1, flex: 1 }}
+                placeholder="Search"
+                inputProps={{ "aria-label": "search" }}
+              />
+            </Paper>
           )}
         </Toolbar>
       </AppBar>
@@ -114,11 +122,10 @@ export default function SideBar() {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />
-      
-      
+
         <DashboardCard />
-        <DashboardCharts/>
-        {/* <CircularChart/> */}
+        <DashboardCharts />
+     
 
         <TableComp />
       </Box>

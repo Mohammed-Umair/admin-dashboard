@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import {
   Box,
   Button,
@@ -16,7 +16,7 @@ const MonthlyBarChart = () => {
 
   const [series] = useState([
     {
-      data: [40, 30, 45, 20, 25, 35, 9, 15, 30, 39, 10, 20],
+      data: [39, 30, 50, 20, 30, 35, 9, 15, 30, 39, 10, 20],
     },
   ]);
 
@@ -32,8 +32,14 @@ const MonthlyBarChart = () => {
       bar: {
         columnWidth: "75%",
         borderRadius: 4,
+        hover: {
+          fill: "#5A32EA",
+          border: "#000000",
+        },
+        
       },
     },
+   
     dataLabels: {
       enabled: false,
     },
@@ -75,20 +81,17 @@ const MonthlyBarChart = () => {
     tooltip: {
       theme: "light",
     },
+   
     colors: [
-      gray,
-      gray,
-info,
-gray,
-gray,
-gray,
-gray,
-gray,
-gray,
-gray,
-gray,
-gray,
-    ]
+      function({ value, seriesIndex, w,dataPointIndex }) {
+        if (value < 40 ) {
+          return gray
+        } else {
+          return info
+        }
+      }
+    ],
+    
   });
 
   return (
@@ -114,7 +117,7 @@ gray,
             sx={{
               fontSize: "18px",
               fontWeight: "bold",
-              marginLeft: "-20px",
+              marginLeft: "-10px",
             }}
           >
             Overview
@@ -123,6 +126,8 @@ gray,
             style={{
               color: "gray",
               marginLeft: "20px",
+              fontSize: "14px",
+
             }}
           >
             Monthly Earning
