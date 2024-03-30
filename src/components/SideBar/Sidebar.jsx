@@ -45,7 +45,7 @@ export default function SideBar() {
           backgroundColor: "#F4F5F9",
           color: "black",
           boxShadow: "none",
-          mt:"10px"
+        
         }}
       >
         <Toolbar sx={{ justifyContent: "space-between" }}>
